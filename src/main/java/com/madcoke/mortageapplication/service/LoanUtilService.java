@@ -47,7 +47,7 @@ public class LoanUtilService {
         if (filename == null || filename.isEmpty()) { filename = "src/prospects.txt"; }
 
         BufferedReader reader = null;
-        String line = "";
+        String line;
         Boolean header = true;
         LoanEntity entity = new LoanEntity();
         try {
