@@ -17,7 +17,6 @@ public class LoanService {
 
     public List<LoanEntity> getAllLoans()
     {
-        System.out.println("getAllLoans");
         List<LoanEntity> result = (List<LoanEntity>) repository.findAll();
 
         if(result.size() > 0) {
@@ -30,7 +29,6 @@ public class LoanService {
 
     public LoanEntity getLoanById(Long id) throws RecordNotFoundException
     {
-        System.out.println("getLoanById");
         Optional<LoanEntity> Loan = repository.findById(id);
 
         if(Loan.isPresent()) {
@@ -42,7 +40,6 @@ public class LoanService {
 
     public LoanEntity createOrUpdateLoan(LoanEntity entity)
     {
-        System.out.println("createOrUpdateLoan");
         // Create new entry
         if(entity.getId()  == null)
         {
@@ -79,8 +76,6 @@ public class LoanService {
 
     public void deleteLoanById(Long id) throws RecordNotFoundException
     {
-        System.out.println("deleteLoanById");
-
         Optional<LoanEntity> Loan = repository.findById(id);
 
         if(Loan.isPresent())

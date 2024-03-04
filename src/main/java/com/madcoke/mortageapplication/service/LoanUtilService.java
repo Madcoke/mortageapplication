@@ -27,10 +27,6 @@ public class LoanUtilService {
             for (int i=1; i<=numberOfPayments; i++) { power =power*(1+monthlyInterest);}
 
             monthlyInstallment = String.format("%1.2f", (amount*(monthlyInterest*power/(power-1))));
-
-            System.out.println("Power= "+ power);
-
-
         }
 
         return monthlyInstallment;
@@ -48,13 +44,13 @@ public class LoanUtilService {
 
     public void readCsvFile(String filename) {
 
+        if (filename == null || filename.isEmpty()) { filename = "src/prospects.txt"; }
+
         BufferedReader reader = null;
         String line = "";
         Boolean header = true;
         LoanEntity entity = new LoanEntity();
-
         try {
-            //System.out.println(file);
             reader = new BufferedReader(new FileReader(filename));
             while((line = reader.readLine()) != null) {
                 line=cleanLine(line);
