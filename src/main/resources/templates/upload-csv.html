@@ -44,12 +44,13 @@
                     th:object="${csvFile}"
                 >
                     <label class="col-form-label">Full filename with path:</label>
-                    <input type="text" th:field = "*{fileName}" class="form-control" placeholder="Defaults to src/prospects.txt"/>
+                    <input type="text" field = "csvFile" class="form-control" placeholder="Defaults to src/prospects.txt"/>
+
                     <br />
                     <input type="submit" disabled style = "display: none">
 
                     <button class="btn btn-primary" onclick="submit"> <i class="fas fa-file-csv ml-2">  Load Csv File </i></button>
-                    <button class="btn btn-primary" formaction="cancelLoad"> <i class="fas fa-times ml-2">  Cancel </i></button>
+                    <a href="/" class="btn btn-primary" > <i class="fas fa-times ml-2">  Cancel </i></a>
 
 
                 </form>

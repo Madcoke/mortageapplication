@@ -4,14 +4,15 @@ import jakarta.persistence.Entity;
 
 public class FileEntity {
     public String getFileName() {
-        return fileName;
+        return csvFile;
     }
 
     public void setFileName(String fileName) {
-        this.fileName = fileName;
+        this.csvFile = csvFile;
     }
 
-    private String fileName;
+    private String csvFile;
+
 
 
 

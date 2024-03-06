@@ -16,20 +16,15 @@ public class FileController {
     @GetMapping("upload")
     public String inputCsvFileName(Model model){
 
-        model.addAttribute("csvFile", new FileEntity());
+        FileEntity csvFile = new FileEntity();
+        model.addAttribute("csvFile", csvFile);
         return "upload-csv";
     }
     @PostMapping("save")
     public String submitCsvFile(Model model,
-                             @ModelAttribute FileEntity csvFile) throws FileNotFoundException {
-
-        model.addAttribute("csvFile", csvFile);
-        String response = utils.readCsvFile(csvFile.getFileName());
-        return "redirect:/";
-    }
-    @PostMapping("cancelLoad")
-    public String cancelLoad() {
-
+                             @ModelAttribute("fileEntity") FileEntity fileEntity) throws FileNotFoundException {
+        model.addAttribute("fileEntity", fileEntity);
+        utils.readCsvFile(fileEntity.getFileName());
 
         return "redirect:/";
     }
