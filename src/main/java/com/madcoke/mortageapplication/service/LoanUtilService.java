@@ -17,16 +17,18 @@ public class LoanUtilService {
     @Autowired
     LoanService service;
 
-    public static String calculateInstallment(Double amount, Double annualInterest, Integer years){
+    public static String calculateInstallment(Double totalamount, Double annualInterest, Integer years){
         String monthlyInstallment="";
         Double monthlyInterest = (annualInterest/PERCENT/MONTHS_IN_YEAR);
         Integer numberOfPayments = (years*MONTHS_IN_YEAR);
         Double power = 1.0;
 
+        //Using formula: E = U[b(1+b)^p]/[(1+b)^p-1]
         if (numberOfPayments>0){
+            //Calculate (1+b)^p as power
             for (int i=1; i<=numberOfPayments; i++) { power =power*(1+monthlyInterest);}
-
-            monthlyInstallment = String.format("%1.2f", (amount*(monthlyInterest*power/(power-1))));
+            //Finally calculate the monthly installment with E=U*(b*power)/(power-1)
+            monthlyInstallment = String.format("%1.2f", (totalamount*(monthlyInterest*power/(power-1))));
         }
 
         return monthlyInstallment;
@@ -42,16 +44,17 @@ public class LoanUtilService {
         return str;
     }
 
-    public void readCsvFile(String filename) {
-
-        if (filename == null || filename.isEmpty()) { filename = "src/prospects.txt"; }
+    public String readCsvFile(String csvFileName) {
+        //Defaults to src/prospects.txt if no file is provided (/src/prospects.txt in docker container)
+        if (csvFileName == null || csvFileName.isEmpty()) { csvFileName = "src/prospects.txt"; }
 
         BufferedReader reader = null;
         String line;
         Boolean header = true;
         LoanEntity entity = new LoanEntity();
         try {
-            reader = new BufferedReader(new FileReader(filename));
+            reader = new BufferedReader(new FileReader(csvFileName));
+
             while((line = reader.readLine()) != null) {
                 line=cleanLine(line);
                 if (!header && line.length()>2){
@@ -68,9 +71,11 @@ public class LoanUtilService {
                 }
                 header = false;
             }
+            return "Success";
         }
         catch (Exception e) {
             e.printStackTrace();
+            return "Error";
         }
         finally {
             try {
@@ -78,7 +83,7 @@ public class LoanUtilService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            return "Reader closed";
         }
     }
 

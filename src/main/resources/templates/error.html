@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
-<head>
-    <meta charset="utf-8">
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Add Loan</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Error</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 </head>
-
 <body>
-
-<!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
         <a class="navbar-brand" href="/">Loan Department</a>
@@ -29,34 +23,24 @@
     </div>
 </nav>
 
-
-
 <div class="container my-5" style="padding-top: 30px;">
-    <h3> Load Csv-file</h3>
+    <h3> An error has occurred...</h3>
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
-                <form
-                    role="form"
-                    method="post"
-                    th:action="@{save}"
-
-                    th:object="${csvFile}"
-                >
-                    <label class="col-form-label">Full filename with path:</label>
-                    <input type="text" th:field = "*{fileName}" class="form-control" placeholder="Defaults to src/prospects.txt"/>
-                    <br />
-                    <input type="submit" disabled style = "display: none">
-
-                    <button class="btn btn-primary" onclick="submit"> <i class="fas fa-file-csv ml-2">  Load Csv File </i></button>
-                    <button class="btn btn-primary" formaction="cancelLoad"> <i class="fas fa-times ml-2">  Cancel </i></button>
-
+                <form>
+                    <p>There seems to be a problem with the page you requested
+                    (<span th:text="${path}"></span>).</p>
+                    <p th:text="${'The status code is ' + status + ', which means that the page was ' + error + '.'}"></p>
+                    <p th:text="${'Further details: ' + message + '.'}"></p>
+                    <a href="/" class="btn btn-primary">
+                    <i class="fas fa-home ml-2"> Back to Home </i></a>
 
                 </form>
-
             </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>

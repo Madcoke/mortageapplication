@@ -1,6 +1,6 @@
 package com.madcoke.mortageapplication.controller;
 
-import com.madcoke.mortageapplication.exception.RecordNotFoundException;
+import com.madcoke.mortageapplication.exception.FileNotFoundException;
 import com.madcoke.mortageapplication.model.LoanEntity;
 import com.madcoke.mortageapplication.service.LoanService;
 import com.madcoke.mortageapplication.service.LoanUtilService;
@@ -16,16 +16,9 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/")
 public class LoanController {
-    Boolean csvLoaded = false;
-
-    Boolean calc = false;
+    Boolean newLoan = false;
     @Autowired
     LoanService service;
-
-    @Autowired
-    LoanUtilService utils;
-    @Autowired
-    FileController fileController;
 
     @RequestMapping
     public String getAllLoans(Model model)
@@ -37,7 +30,7 @@ public class LoanController {
 
     @RequestMapping(path = {"/edit", "/edit/{id}"})
     public String editLoanById(Model model, @PathVariable("id") Optional<Long> id)
-            throws RecordNotFoundException
+            throws FileNotFoundException
     {
 
         if (id.isPresent()) {
@@ -48,8 +41,10 @@ public class LoanController {
                 service.createOrUpdateLoan(entity);
             }
             model.addAttribute("Loan", entity);
+            //newLoan=false;
         } else {
             model.addAttribute("Loan", new LoanEntity());
+            newLoan=true;
         }
         return "add-edit-loan";
     }
@@ -58,10 +53,11 @@ public class LoanController {
 
     @RequestMapping(path = "/delete/{id}")
     public String deleteLoanById(Model model, @PathVariable("id") Long id)
-            throws RecordNotFoundException
+            throws FileNotFoundException
     {
-        service.deleteLoanById(id);
-        return "redirect:/";
+            service.deleteLoanById(id);
+            return "redirect:/";
+
     }
 
     @RequestMapping(path = "/createLoan", method = RequestMethod.POST)
@@ -77,18 +73,27 @@ public class LoanController {
     @RequestMapping(path = "/calcLoan", method = RequestMethod.POST)
     public String calcLoan(LoanEntity loan)
     {
-        calc = true;
+        //calc = true;
         loan.setInstallment(Double.parseDouble(LoanUtilService.calculateInstallment(loan.getAmount(),
                 loan.getInterest(),loan.getYears()).replace(",",".")));
         service.createOrUpdateLoan(loan);
         return ("redirect:/edit/"+ loan.getId());
     }
 
-    @RequestMapping(path = "/deleteProspect")
-    public String deleteProspect(LoanEntity loan) throws RecordNotFoundException
+    @RequestMapping(path = {"/deleteProspect" , "/deleteProspect/{id}"})
+    public String deleteProspectById(Model model, @PathVariable("id") Optional<Long> id)
+            throws FileNotFoundException
     {
-        service.deleteLoanById(loan.getId());
+        if (newLoan) {
+            if (id.isPresent()) {
+                service.deleteLoanById(id.get());
+
+            }
+        }
+        newLoan = false;
         return "redirect:/";
+
     }
+
 
 }

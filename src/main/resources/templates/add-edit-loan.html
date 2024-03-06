@@ -15,11 +15,7 @@
 	<!-- Navigation -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 		    <div class="container">
-		        <a class="navbar-brand" href="/">Godbybankens utlåning</a>
-		        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-		                aria-expanded="false" aria-label="Toggle navigation">
-		            <span class="navbar-toggler-icon"></span>
-		        </button>
+		        <a class="navbar-brand" href="/">Loan Department</a>
 		        <div class="collapse navbar-collapse" id="navbarResponsive">
 		            <ul class="navbar-nav ml-auto">
 		                <li class="nav-item active">
@@ -79,11 +75,16 @@
 
                             <div class="col-md-6">
                                 <input type="submit" disabled style = "display: none">
+                                <a href="/" class="btn btn-primary" onclick="submit">
+                                    <i class="fas fa-arrow-down"> Save </i></a>
 
-                                <input type="submit" class="btn btn-primary" value=" Submit " onclick="submit">
-                                <input type="submit" class="btn btn-primary" formaction="/deleteProspect" value="Delete">
+                                <a th:href="@{/deleteProspect/{id}(id=${Loan.id})}" class="btn btn-primary">
+                                    <i class="fas fa-eraser"> Clear </i></a>
+
+                                <a href="/deleteProspect" class="btn btn-primary">
+                                    <i class="fas fa-times"> Cancel </i></a>
+
                                 <input type="submit" style="visibility:hidden" id="calculate" formaction="/calcLoan">
-
                             </div>
 
                             <input type="hidden" id="id" th:field="*{id}">

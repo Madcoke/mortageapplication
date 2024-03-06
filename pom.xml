@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.madcoke</groupId>
 	<artifactId>mortageapplication</artifactId>
-	<version>1.0</version>
+	<version>1.1 </version>
 	<name>mortageapplication</name>
 	<description>Mortage calculator exercise </description>
 	<properties>

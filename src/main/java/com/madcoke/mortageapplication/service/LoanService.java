@@ -1,6 +1,6 @@
 package com.madcoke.mortageapplication.service;
 
-import com.madcoke.mortageapplication.exception.RecordNotFoundException;
+import com.madcoke.mortageapplication.exception.FileNotFoundException;
 import com.madcoke.mortageapplication.model.LoanEntity;
 import com.madcoke.mortageapplication.model.repository.LoanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +27,14 @@ public class LoanService {
     }
 
 
-    public LoanEntity getLoanById(Long id) throws RecordNotFoundException
+    public LoanEntity getLoanById(Long id) throws FileNotFoundException
     {
         Optional<LoanEntity> Loan = repository.findById(id);
 
         if(Loan.isPresent()) {
             return Loan.get();
         } else {
-            throw new RecordNotFoundException("No Loan record exist for given id");
+            throw new FileNotFoundException("No Loan record exist for given id");
         }
     }
 
@@ -74,7 +74,7 @@ public class LoanService {
         }
     }
 
-    public void deleteLoanById(Long id) throws RecordNotFoundException
+    public void deleteLoanById(Long id) throws FileNotFoundException
     {
         Optional<LoanEntity> Loan = repository.findById(id);
 
@@ -82,7 +82,7 @@ public class LoanService {
         {
             repository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("No Loan record exist for given id");
+            throw new FileNotFoundException("No Loan record exist for given id");
         }
     }
 
