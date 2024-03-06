@@ -22,9 +22,9 @@ public class FileController {
     }
     @PostMapping("save")
     public String submitCsvFile(Model model,
-                             @ModelAttribute("fileEntity") FileEntity fileEntity) throws FileNotFoundException {
-        model.addAttribute("fileEntity", fileEntity);
-        utils.readCsvFile(fileEntity.getFileName());
+                             @ModelAttribute("csvFile") FileEntity csvFile) throws FileNotFoundException {
+        model.addAttribute("csvFile", csvFile);
+        utils.readCsvFile(csvFile.getFileName());
 
         return "redirect:/";
     }

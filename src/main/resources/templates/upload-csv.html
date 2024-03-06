@@ -39,13 +39,12 @@
                 <form
                     role="form"
                     method="post"
-                    th:action="@{save}"
+                    th:action="@{/save}"
 
                     th:object="${csvFile}"
                 >
                     <label class="col-form-label">Full filename with path:</label>
-                    <input type="text" field = "csvFile" class="form-control" placeholder="Defaults to src/prospects.txt"/>
-
+                    <input type="text" th:field="*{fileName}" class="form-control" id="fileName" />
                     <br />
                     <input type="submit" disabled style = "display: none">
 
